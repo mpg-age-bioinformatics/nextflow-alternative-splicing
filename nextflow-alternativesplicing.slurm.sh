@@ -102,49 +102,48 @@ else
 
 fi
 
-# get_images() {
-#   echo "- downloading images"
-#   nextflow run ${ORIGIN}nf-fastqc ${FASTQC_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
-#   nextflow run ${ORIGIN}nf-kallisto ${KALLISTO_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
-#   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
-#   nextflow run ${ORIGIN}nf-multiqc ${MULTIQC_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
-#   nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
-#   nextflow run ${ORIGIN}nf-sajr ${SAJR_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1
-#   echo "- images downloaded"
-# }
+get_images() {
+  echo "- downloading images"
+  nextflow run ${ORIGIN}nf-fastqc ${FASTQC_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-kallisto ${KALLISTO_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-multiqc ${MULTIQC_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-sajr ${SAJR_RELEASE} -params-file ${PARAMS} -entry images -profile ${PROFILE} >> ${LOGS}/get_images.log 2>&1
+  echo "- images downloaded"
+}
 
-# run_fastqc() {
-#   echo "- running fastqc"
-#   nextflow run ${ORIGIN}nf-fastqc ${FASTQC_RELEASE} -params-file ${PARAMS} -profile ${PROFILE} >> ${LOGS}/nf-fastqc.log 2>&1 && \
-#   nextflow run ${ORIGIN}nf-fastqc ${FASTQC_RELEASE} -params-file ${PARAMS} -entry upload -profile ${PROFILE} >> ${LOGS}/nf-fastqc.log 2>&1
-#   echo "- fastqc done" 
-# }
+run_fastqc() {
+  echo "- running fastqc"
+  nextflow run ${ORIGIN}nf-fastqc ${FASTQC_RELEASE} -params-file ${PARAMS} -profile ${PROFILE} >> ${LOGS}/nf-fastqc.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-fastqc ${FASTQC_RELEASE} -params-file ${PARAMS} -entry upload -profile ${PROFILE} >> ${LOGS}/nf-fastqc.log 2>&1
+  echo "- fastqc done" 
+}
 
-# run_kallisto_get_genome() {
-#   echo "- getting genome files"
-#   nextflow run ${ORIGIN}nf-kallisto ${KALLISTO_RELEASE} -params-file ${PARAMS} -entry get_genome -profile ${PROFILE} >> ${LOGS}/kallisto.log
-#   echo "- done downloading genome files"
-# }
+run_kallisto_get_genome() {
+  echo "- getting genome files"
+  nextflow run ${ORIGIN}nf-kallisto ${KALLISTO_RELEASE} -params-file ${PARAMS} -entry get_genome -profile ${PROFILE} >> ${LOGS}/kallisto.log
+  echo "- done downloading genome files"
+}
 
 run_star() {
   echo "- running star"
-  # nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry rename -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
-  # nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry index -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry rename -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry index -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry map_reads -profile ${PROFILE} >> ${LOGS}/star.log
   echo "- star done"
 }
 
-# run_multiqc() {
-#   echo "- running multiqc"
-#   nextflow run ${ORIGIN}nf-multiqc ${MULTIQC_RELEASE} -params-file ${PARAMS} -profile ${PROFILE} >> ${LOGS}/multiqc.log 2>&1 && \
-#   nextflow run ${ORIGIN}nf-multiqc ${MULTIQC_RELEASE} -params-file ${PARAMS} -entry upload -profile ${PROFILE} >> ${LOGS}/multiqc.log 2>&1
-#   echo "- multiqc done"
-# }
+run_multiqc() {
+  echo "- running multiqc"
+  nextflow run ${ORIGIN}nf-multiqc ${MULTIQC_RELEASE} -params-file ${PARAMS} -profile ${PROFILE} >> ${LOGS}/multiqc.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-multiqc ${MULTIQC_RELEASE} -params-file ${PARAMS} -entry upload -profile ${PROFILE} >> ${LOGS}/multiqc.log 2>&1
+  echo "- multiqc done"
+}
 
 run_bedGraphToBigWig() {
   echo "- running bedGraphToBigWig_asplicing"  
-  nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file  ${PARAMS} -entry bedgraphtobigwig_ATACseq  -profile ${PROFILE}>> ${LOGS}/nf-bedGraphToBigWig.log 2>&1 && \
-  # nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file ${PARAMS} -entry upload  -profile ${PROFILE}>> ${LOGS}/nf-bedGraphToBigWig.log 2>&1 
+  nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file  ${PARAMS} -entry bedgraphtobigwig_ATACseq  -profile ${PROFILE}>> ${LOGS}/nf-bedGraphToBigWig.log 2>&1
   echo "- bedGraphToBigWig done"  
 }
 
@@ -157,18 +156,18 @@ run_sajr() {
   echo "- sajr done"
 }
 
-# get_images & IMAGES_PID=$!
-# wait_for "${IMAGES_PID}:IMAGES"
+get_images & IMAGES_PID=$!
+wait_for "${IMAGES_PID}:IMAGES"
 
-# run_fastqc & FASTQC_PID=$!
-# run_kallisto_get_genome & KALLISTO_PID=$!
-# wait_for "${KALLISTO_PID}:KALLISTO"
+run_fastqc & FASTQC_PID=$!
+run_kallisto_get_genome & KALLISTO_PID=$!
+wait_for "${KALLISTO_PID}:KALLISTO"
 
 run_star & STAR_PID=$!
 wait_for "${STAR_PID}:STAR"
 
-# run_multiqc & MULTIQC_PID=$!
-# wait_for "${MULTIQC_PID}:MULTIQC"
+run_multiqc & MULTIQC_PID=$!
+wait_for "${MULTIQC_PID}:MULTIQC"
 
 run_bedGraphToBigWig & RUN_bedGraphToBigWig_PID=$!
 wait_for "${RUN_bedGraphToBigWig_PID}:bedGraphToBigWig"
