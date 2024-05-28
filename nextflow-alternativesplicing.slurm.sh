@@ -35,6 +35,7 @@ failed=false
 PROFILE=$2
 LOGS="work"
 PARAMS="params.json"
+project_folder="/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/"
 
 mkdir -p ${LOGS}
 
@@ -145,7 +146,10 @@ run_multiqc() {
 
 run_bedGraphToBigWig() {
   echo "- running bedGraphToBigWig_asplicing"  
-  nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file  ${PARAMS} -entry bedgraphtobigwig_ATACseq  -profile ${PROFILE}>> ${LOGS}/nf-bedGraphToBigWig.log 2>&1
+  nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file  ${PARAMS} -entry bedgraphtobigwig_ATACseq  -profile ${PROFILE}>> ${LOGS}/nf-bedGraphToBigWig.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-bedGraphToBigWig ${BEDGRAPHTOBIGWIG_RELEASE} -params-file  ${PARAMS} -entry upload  -profile ${PROFILE}>> ${LOGS}/nf-bedGraphToBigWig.log 2>&1
+
+
   echo "- bedGraphToBigWig done"  
 }
 
@@ -177,15 +181,15 @@ wait_for "${RUN_bedGraphToBigWig_PID}:bedGraphToBigWig"
 run_sajr & SAJR_PID=$!
 wait_for "${SAJR_PID}:SAJR"
 
-rm -rf ${params.project_folder}/upload.txt
-cat $(find ${params.project_folder}/ -name upload.txt) > ${params.project_folder}/upload.txt
+rm -rf ${project_folder}upload.txt
+cat $(find ${project_folder}/ -name upload.txt) > ${project_folder}/upload.txt
 sort -u ${LOGS}/software.txt > ${LOGS}/software.txt_
 mv ${LOGS}/software.txt_ ${LOGS}/software.txt
-cp ${LOGS}/software.txt ${params.project_folder}/software.txt
-cp README_alternativeSplicing.md ${params.project_folder}/README_alternativeSplicing.md
-echo "main $(readlink -f ${params.project_folder}/software.txt)" >> ${params.project_folder}/upload.txt
-echo "main $(readlink -f ${params.project_folder}/README_alternativeSplicing.md)" >> ${params.project_folder}/upload.txt
-# cp ${params.project_folder}/upload.txt ${upload_list}
+cp ${LOGS}/software.txt ${project_folder}/software.txt
+cp README_alternativeSplicing.md ${project_folder}/README_alternativeSplicing.md
+echo "main $(readlink -f ${project_folder}/software.txt)" >> ${project_folder}/upload.txt
+echo "main $(readlink -f ${project_folder}/README_alternativeSplicing.md)" >> ${project_folder}/upload.txt
+#${project_folder}/upload.txt ${upload_list}
 echo "- done" && sleep 1
 
 exit
