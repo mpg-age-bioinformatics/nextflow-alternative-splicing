@@ -130,7 +130,9 @@ run_star() {
   echo "- running star"
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry rename -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry index -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
-  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry map_reads -profile ${PROFILE} >> ${LOGS}/star.log
+  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry map_reads -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry sorting -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 
+
   echo "- star done"
 }
 
@@ -175,16 +177,15 @@ wait_for "${RUN_bedGraphToBigWig_PID}:bedGraphToBigWig"
 run_sajr & SAJR_PID=$!
 wait_for "${SAJR_PID}:SAJR"
 
-
-rm -rf ${project_folder}/upload.txt
-cat $(find ${project_folder}/ -name upload.txt) > ${project_folder}/upload.txt
+rm -rf ${params.project_folder}/upload.txt
+cat $(find ${params.project_folder}/ -name upload.txt) > ${params.project_folder}/upload.txt
 sort -u ${LOGS}/software.txt > ${LOGS}/software.txt_
 mv ${LOGS}/software.txt_ ${LOGS}/software.txt
-cp ${LOGS}/software.txt ${project_folder}/software.txt
-cp README_alternativeSplicing.md ${project_folder}/README_alternativeSplicing.md
-echo "main $(readlink -f ${project_folder}/software.txt)" >> ${project_folder}/upload.txt
-echo "main $(readlink -f ${project_folder}/README_alternativeSplicing.md)" >> ${project_folder}/upload.txt
-cp ${project_folder}/upload.txt ${upload_list}
+cp ${LOGS}/software.txt ${params.project_folder}/software.txt
+cp README_alternativeSplicing.md ${params.project_folder}/README_alternativeSplicing.md
+echo "main $(readlink -f ${params.project_folder}/software.txt)" >> ${params.project_folder}/upload.txt
+echo "main $(readlink -f ${params.project_folder}/README_alternativeSplicing.md)" >> ${params.project_folder}/upload.txt
+# cp ${params.project_folder}/upload.txt ${upload_list}
 echo "- done" && sleep 1
 
 exit
