@@ -132,7 +132,8 @@ run_star() {
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry rename -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry index -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry map_reads -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
-  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry sorting -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 
+  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry bam_index -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry merging -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 
 
   echo "- star done"
 }
@@ -155,10 +156,10 @@ run_bedGraphToBigWig() {
 
 run_sajr() {
   echo "- running sajr"
-  nextflow run ${ORIGIN}nf-sajr ${VEP_RELEASE} -params-file ${PARAMS} -entry config_template -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 && \
-  nextflow run ${ORIGIN}nf-sajr ${VEP_RELEASE} -params-file ${PARAMS} -entry sajr_processing -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 && \
-  nextflow run ${ORIGIN}nf-sajr ${VEP_RELEASE} -params-file ${PARAMS} -entry sajr_diff -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 && \
-  nextflow run ${ORIGIN}nf-sajr ${VEP_RELEASE} -params-file ${PARAMS} -entry upload -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 
+  nextflow run ${ORIGIN}nf-sajr ${SAJR_RELEASE} -params-file ${PARAMS} -entry config_template -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-sajr ${SAJR_RELEASE} -params-file ${PARAMS} -entry sajr_processing -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-sajr ${SAJR_RELEASE} -params-file ${PARAMS} -entry sajr_diff -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 && \
+  nextflow run ${ORIGIN}nf-sajr ${SAJR_RELEASE} -params-file ${PARAMS} -entry upload -profile ${PROFILE} >> ${LOGS}/sajr.log 2>&1 
   echo "- sajr done"
 }
 
