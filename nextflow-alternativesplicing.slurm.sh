@@ -35,7 +35,7 @@ failed=false
 PROFILE=$2
 LOGS="work"
 PARAMS="params.json"
-project_folder="/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow-alternative_splicing/"
+project_folder="/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow_asplicing_test/"
 
 mkdir -p ${LOGS}
 
