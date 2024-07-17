@@ -5,7 +5,7 @@
   "raw_data": "",
   "genomes" : "/nexus/posix0/MAGE-flaski/service/projects/data/Bioinformatics/alternative_splicing/",
   "raw_renamed" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow_asplicing_test/raw_renamed/",
-  "sample_sheet_xlsx" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow_asplicing_test/sample_sheet.xlsx",
+  "sample_sheet_xlsx" : "/nexus/posix0/MAGE-flaski/service/hpc/home/sjiang/nextflow_asplicing_test/nextflow-alternative-splicing/sample_sheet.xlsx",
   "read1_sufix" : ".READ_1.fastq.gz",
   "read2_sufix" : ".READ_2.fastq.gz",
   "star_index" : "/nexus/posix0/MAGE-flaski/service/projects/data/Bioinformatics/alternative_splicing/caenorhabditis_elegans/111/toplevel_star_2.7.11b/",
