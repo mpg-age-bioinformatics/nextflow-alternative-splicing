@@ -12,7 +12,7 @@ This workflow is based on the following nextflow pipes:
 
 Create the test directory:
 ```
-mkdir -p /${HOME}/nextflow_asplicing_test
+mkdir -p ${HOME}/nextflow_asplicing_test
 ```
 
 Download the demo data:
