@@ -132,7 +132,6 @@ run_star() {
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry rename -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry index -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry map_reads -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
-  nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry bam_index -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 && \
   nextflow run ${ORIGIN}nf-star ${STAR_RELEASE} -params-file ${PARAMS} -entry merging -profile ${PROFILE} >> ${LOGS}/star.log 2>&1 
 
   echo "- star done"
